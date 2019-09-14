@@ -1,3 +1,2 @@
 # coupon-aggregator
-## Description
-Uses web parsing to extract coupons from grocery store websites and format into readable lists.
+Uses web parsing to extract information from digital coupons (e.g. items, regular and sale prices) from grocery store websites and format into readable lists.
