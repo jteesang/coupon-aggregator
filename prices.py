@@ -13,11 +13,10 @@ main_sec = body_sec.find('main')
 
 body_sec1 = soup1.find('body')
 main_sec1 = body_sec.find('main')
+deals_sec = main_sec.find('section', attrs={'class': 'w-sales-tile-group'})
 
 
 # parsing titles of items
-deals_sec = main_sec.find('section', attrs={'class': 'w-sales-tile-group'})
-
 titles_text = []
 for i in range(0,20):
 	names = deals_sec.find_all('h4')[i].text
@@ -35,16 +34,12 @@ with open('Whole Foods.csv', 'w') as outfile:
 outfile.close()
 
 # parsing regular prices of items
-# regular_sec = main_sec.find('div', attrs={'div': 'w-sales-tile__regular-price'})
-
 regular_text = []
 for i in range(0,20):
 	reg = deals_sec.find_all('div', attrs={'class': 'w-sales-tile__regular-price'})[i].text
+	reg = reg.replace("Regular",'')
 	regular_text.append(reg)
-	#print(regular_text[i])
-
-
-
+	# print(regular_text[i])
 
 # parsing sale prices of items
 prices_sec = main_sec.find('section', attrs={'class': 'w-sales-tile-group'})
@@ -72,14 +67,16 @@ with open('Whole Foods.csv', 'r') as infile:
 	f = csv.reader(infile, delimiter= '\n')
 	titles_text = list(f)
 
-	
 master = zip(titles_text, regular_text, prices_text)
 
-with open('Whole Foods.csv', 'w') as file:
-	writer = csv.writer(file)
-	for row in master:
-		writer.writerow(row)
+# with open('Whole Foods.csv', 'w') as file:
+# 	writer = csv.writer(file)
+# 	for row in master:
+# 		writer.writerow(row.encode('utf-8'))
 
+
+wf_data = list(zip(titles_text, regular_text, prices_text))
+# print(wf_data)
 
 
 
